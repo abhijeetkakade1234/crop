@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { LayoutGrid, ArrowLeft, RefreshCw } from 'lucide-react';
+import { LayoutGrid, ArrowLeft, ZoomIn, ZoomOut, Maximize } from 'lucide-react';
 import CanvasViewer from './CanvasViewer';
 import ControlPanel from './ControlPanel';
 import styles from './Editor.module.css';
@@ -29,14 +29,14 @@ const Editor = ({ image, onReset }) => {
       <header className={styles.header}>
         <div className={styles.left}>
           <button className={styles.backBtn} onClick={onReset}>
-            <ArrowLeft size={18} />
+            <ArrowLeft size={20} />
           </button>
           <div className={styles.divider} />
-          <div>
+          <div className={styles.fileInfo}>
             <h2 className={styles.filename}>{image.name}</h2>
-            <p className={styles.filesize}>
+            <span className={styles.filesize}>
               {image.width} × {image.height} px
-            </p>
+            </span>
           </div>
         </div>
 
@@ -52,34 +52,36 @@ const Editor = ({ image, onReset }) => {
               <LayoutGrid size={18} />
             </button>
             <div className={styles.vDivider} />
-            <button
-              className={styles.toolBtn}
-              onClick={() => setZoom((prev) => Math.max(0.1, prev - 0.1))}
-              title="Zoom Out"
-            >
-              -
-            </button>
-            <span className={styles.zoomLabel}>{Math.round(zoom * 100)}%</span>
-            <button
-              className={styles.toolBtn}
-              onClick={() => setZoom((prev) => Math.min(5, prev + 0.1))}
-              title="Zoom In"
-            >
-              +
-            </button>
-            <button
-              className={styles.toolBtn}
-              onClick={() => setZoom(1)}
-              title="Reset Zoom"
-            >
-              <RefreshCw size={14} />
-            </button>
+            <div className={styles.zoomControls}>
+              <button
+                className={styles.toolBtn}
+                onClick={() => setZoom((prev) => Math.max(0.1, prev - 0.1))}
+                title="Zoom Out"
+              >
+                <ZoomOut size={16} />
+              </button>
+              <span className={styles.zoomLabel}>
+                {Math.round(zoom * 100)}%
+              </span>
+              <button
+                className={styles.toolBtn}
+                onClick={() => setZoom((prev) => Math.min(5, prev + 0.1))}
+                title="Zoom In"
+              >
+                <ZoomIn size={16} />
+              </button>
+              <button
+                className={styles.toolBtn}
+                onClick={() => setZoom(1)}
+                title="Reset Zoom"
+              >
+                <Maximize size={16} />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className={styles.right}>
-          <div className={styles.badge}>Ready to Harvest</div>
-        </div>
+        <div className={styles.right}></div>
       </header>
 
       <main className={styles.content}>

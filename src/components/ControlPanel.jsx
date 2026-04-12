@@ -4,6 +4,7 @@ import {
   Download,
   Image as ImageIcon,
   Box,
+  RefreshCw,
 } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
@@ -48,7 +49,6 @@ const ControlPanel = ({
         for (let c = 0; c < grid.cols; c++) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-          // sx, sy, sw, sh, dx, dy, dw, dh
           ctx.drawImage(
             img,
             c * stats.cellW + grid.padding,
@@ -125,7 +125,7 @@ const ControlPanel = ({
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <Settings2 size={16} />
-          <span>Grid Settings</span>
+          <span>Grid Definition</span>
         </div>
 
         <div className={styles.gridInputs}>
@@ -152,34 +152,37 @@ const ControlPanel = ({
         </div>
 
         <div className={styles.inputGroup}>
-          <label>Padding (px per side)</label>
-          <input
-            type="range"
-            name="padding"
-            value={grid.padding}
-            onChange={handleInputChange}
-            min="0"
-            max={Math.floor(Math.min(stats.cellW, stats.cellH) / 2) - 1}
-          />
-          <div className={styles.rangeValue}>{grid.padding}px</div>
+          <label>Padding Offset (px)</label>
+          <div className={styles.rangeRow}>
+            <input
+              type="range"
+              name="padding"
+              value={grid.padding}
+              onChange={handleInputChange}
+              min="0"
+              max={Math.floor(Math.min(stats.cellW, stats.cellH) / 2) - 1}
+            />
+            <span className={styles.rangeValue}>{grid.padding}px</span>
+          </div>
         </div>
 
-        <div className={styles.stats}>
-          <div className={styles.statItem}>
-            <span className={styles.statLabel}>Cell Size</span>
-            <span className={styles.statValue}>
+        <div className={styles.statsCard}>
+          <div className={styles.statLine}>
+            <span>Cell Atlas</span>
+            <span className={styles.mono}>
               {stats.cellW}x{stats.cellH}
             </span>
           </div>
-          <div className={styles.statItem}>
-            <span className={styles.statLabel}>Output Size</span>
-            <span className={styles.statValue}>
+          <div className={styles.statLine}>
+            <span>Output Yield</span>
+            <span className={styles.mono + ' ' + styles.accent}>
               {stats.outputW}x{stats.outputH}
             </span>
           </div>
-          <div className={styles.statItem}>
-            <span className={styles.statLabel}>Total Sprites</span>
-            <span className={styles.statValue}>{stats.total}</span>
+          <div className={styles.harvestGradient}></div>
+          <div className={styles.statLine}>
+            <span>Total Units</span>
+            <span className={styles.mono}>{stats.total} sprites</span>
           </div>
         </div>
       </section>
@@ -187,7 +190,7 @@ const ControlPanel = ({
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <Eye size={16} />
-          <span>Preview</span>
+          <span>Inspection</span>
         </div>
         <PreviewCard image={image} grid={grid} stats={stats} />
       </section>
@@ -195,62 +198,44 @@ const ControlPanel = ({
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <Box size={16} />
-          <span>Options</span>
+          <span>Process Parameters</span>
         </div>
-        <label className={styles.checkbox}>
+        <label className={styles.modernCheckbox}>
           <input
             type="checkbox"
             name="transparentBg"
             checked={grid.transparentBg}
             onChange={handleInputChange}
           />
-          <span>Handle Transparency</span>
+          <span className={styles.checkmark}></span>
+          <span className={styles.checkboxLabel}>Preserve Alpha Channel</span>
         </label>
       </section>
 
       <div className={styles.actions}>
         <button
-          className={styles.exportBtn}
+          className={styles.carrotBtn}
           onClick={exportZip}
           disabled={isExporting}
         >
           {isExporting ? (
-            <RefreshCw className={styles.spin} size={18} />
+            <RefreshCw className={styles.spacer} size={18} />
           ) : (
             <Download size={18} />
           )}
-          <span>Download ZIP</span>
+          <span>Download Portfolio ZIP</span>
         </button>
         <button
-          className={styles.secondaryBtn}
+          className={styles.sunshineBtn}
           onClick={exportSheet}
           disabled={isExporting}
         >
           <ImageIcon size={18} />
-          <span>Export Sprite Sheet</span>
+          <span>Export Repacked Sheet</span>
         </button>
       </div>
     </div>
   );
 };
-
-// Simple spinner animation for exporting
-const RefreshCw = ({ size, className }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    style={{ animation: 'spin 1s linear infinite' }}
-  >
-    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-    <path d="M21 3v9h-9" />
-  </svg>
-);
 
 export default ControlPanel;

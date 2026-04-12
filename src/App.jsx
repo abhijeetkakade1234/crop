@@ -41,8 +41,8 @@ function App() {
             style={{
               display: 'flex',
               flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: '100%',
+              flexDirection: 'column',
             }}
           >
             <UploadBox onUpload={handleUpload} />

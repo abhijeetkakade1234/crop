@@ -1,17 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Syne:wght@400..800&family=DM+Mono:ital,wght@0,300..500;1,300..500&display=swap');
+
 :root {
-  --bg: #0f0f0f;
-  --surface: #1a1a1a;
-  --surface-hover: #242424;
-  --accent: #6366f1; /* Indigo */
-  --accent-hover: #4f46e5;
-  --text: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --border: #333333;
-  --radius: 12px;
-  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', monospace;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  /* The Modern Agrarian Palette */
+  --bg: #fff8ef;
+  --surface: #fff8ef;
+  --surface-container-low: #fef3d6;
+  --surface-container: #f8edd1;
+  --surface-container-high: #f2e7cb;
+  --surface-container-highest: #ede2c6;
+
+  --accent: #18542a; /* Forest Green */
+  --accent-container: #ffc926; /* Sunshine */
+  --on-accent-container: #251a00;
+
+  --primary: #f96015; /* Carrot */
+  --secondary: #9abc05; /* Kiwi */
+  --tertiary: #ef4444; /* Tomato */
+
+  --text: #201b0a;
+  --text-secondary: #5a4a2a;
+  --border: transparent;
+  --outline: rgba(32, 27, 10, 0.15); /* Ghost Border */
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+
+  --font-headline: 'Playfair Display', serif;
+  --font-label: 'Syne', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  --hard-shadow: 4px 4px 0px #1a1a0f;
+  --hard-shadow-active: 2px 2px 0px #1a1a0f;
 }
 
 * {
@@ -21,45 +40,83 @@
 }
 
 body {
-  font-family: var(--font-main);
+  font-family: var(--font-mono);
   background-color: var(--bg);
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden; /* Main app is usually a fixed height layout */
 }
 
-input,
-button,
-select,
-textarea {
-  font-family: inherit;
-  color: inherit;
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  line-height: 1.1;
 }
 
 button {
+  font-family: var(--font-label);
   cursor: pointer;
   border: none;
   background: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #root {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Scrollbar styles */
+/* Custom Utilities */
+.hard-shadow {
+  box-shadow: var(--hard-shadow);
+}
+
+.hard-shadow-hover:hover {
+  box-shadow: var(--hard-shadow-active);
+  transform: translate(2px, 2px);
+}
+
+.hard-shadow-hover:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.harvest-gradient {
+  background: linear-gradient(
+    to right,
+    var(--accent-container),
+    var(--primary),
+    var(--tertiary),
+    var(--secondary),
+    var(--accent)
+  );
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(
+    circle,
+    var(--accent-container) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+/* Scrollbar customization */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
+  background: var(--surface-container-highest);
+  border: 2px solid var(--bg);
+  border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: var(--outline);
 }

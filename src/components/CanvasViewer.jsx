@@ -2,149 +2,159 @@ import { useRef, useEffect, useState } from 'react';
 import styles from './CanvasViewer.module.css';
 
 const CanvasViewer = ({ image, grid, zoom, setZoom, stats }) => {
-  const containerRef = useRef(null);
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [hoverCell, setHoverCell] = useState(null);
+  const [isPanning, setIsPanning] = useState(false);
+  const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
+  const [hasInitialized, setHasInitialized] = useState(false);
 
+  // Initial Auto-fit
   useEffect(() => {
+    if (!image || !containerRef.current || hasInitialized) return;
+
+    const container = containerRef.current;
+    const padding = 80;
+    const availableW = container.clientWidth - padding;
+    const availableH = container.clientHeight - padding;
+
+    const fitZoom = Math.min(
+      availableW / image.width,
+      availableH / image.height,
+      1.0 // Don't upscale beyond 100% by default
+    );
+
+    setZoom(Number(fitZoom.toFixed(2)));
+
+    // Center it
+    setOffset({
+      x: (container.clientWidth - image.width * fitZoom) / 2,
+      y: (container.clientHeight - image.height * fitZoom) / 2,
+    });
+
+    setHasInitialized(true);
+  }, [image, hasInitialized, setZoom]);
+
+  // Canvas Drawing
+  useEffect(() => {
+    if (!image || !canvasRef.current) return;
+
     const canvas = canvasRef.current;
-    if (!canvas || !image) return;
-
     const ctx = canvas.getContext('2d');
-    canvas.width = image.width;
-    canvas.height = image.height;
-
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw image
     const img = new Image();
     img.src = image.url;
+
     img.onload = () => {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
 
-      // Draw Grid
       if (grid.showGrid) {
-        ctx.strokeStyle = 'rgba(99, 102, 241, 0.5)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
+        ctx.strokeStyle = '#18542a';
+        ctx.lineWidth = 1 / zoom;
+        ctx.setLineDash([5 / zoom, 5 / zoom]);
 
-        // Vertical lines
         for (let i = 0; i <= grid.cols; i++) {
           const x = i * stats.cellW;
+          ctx.beginPath();
           ctx.moveTo(x, 0);
-          ctx.lineTo(x, image.height);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
         }
-
-        // Horizontal lines
         for (let i = 0; i <= grid.rows; i++) {
           const y = i * stats.cellH;
-          ctx.moveTo(0, y);
-          ctx.lineTo(image.width, y);
-        }
-        ctx.stroke();
-
-        // Draw padding indicators if padding > 0
-        if (grid.padding > 0) {
-          ctx.strokeStyle = 'rgba(239, 68, 68, 0.3)';
-          ctx.setLineDash([2, 4]);
           ctx.beginPath();
-          for (let r = 0; r < grid.rows; r++) {
-            for (let c = 0; c < grid.cols; c++) {
-              ctx.strokeRect(
-                c * stats.cellW + grid.padding,
-                r * stats.cellH + grid.padding,
-                stats.outputW,
-                stats.outputH
-              );
-            }
-          }
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
           ctx.stroke();
-          ctx.setLineDash([]);
         }
 
-        // Highlight Hover Cell
-        if (hoverCell) {
-          ctx.fillStyle = 'rgba(99, 102, 241, 0.15)';
-          ctx.fillRect(
-            hoverCell.c * stats.cellW,
-            hoverCell.r * stats.cellH,
-            stats.cellW,
-            stats.cellH
-          );
+        ctx.fillStyle = 'rgba(255, 201, 38, 0.2)';
+        ctx.setLineDash([]);
+        for (let r = 0; r < grid.rows; r++) {
+          for (let c = 0; c < grid.cols; c++) {
+            const x = c * stats.cellW + grid.padding;
+            const y = r * stats.cellH + grid.padding;
+            ctx.strokeRect(x, y, stats.outputW, stats.outputH);
+            ctx.fillRect(x, y, stats.outputW, stats.outputH);
+          }
         }
       }
     };
-  }, [image, grid, stats, hoverCell]);
+  }, [image, grid, stats, zoom]);
 
-  const handleMouseDown = (e) => {
-    if (e.button === 0) {
-      // Left click for pan
-      setIsDragging(true);
-      setDragStart({ x: e.clientX - offset.x, y: e.clientY - offset.y });
-    }
-  };
+  // Non-passive wheel listener for zoom to prevent whole-page zoom
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      setOffset({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
-      });
-    }
+    const handleWheelEvent = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.1 : 0.1;
+        const newZoom = Math.min(10, Math.max(0.1, zoom + delta));
 
-    // Hover detection for grid highlighting
-    if (grid.showGrid) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      const xInCanvas = (e.clientX - rect.left) / zoom;
-      const yInCanvas = (e.clientY - rect.top) / zoom;
+        // Zoom towards mouse coordinate math
+        const rect = container.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
 
-      const col = Math.floor(xInCanvas / stats.cellW);
-      const row = Math.floor(yInCanvas / stats.cellH);
+        const ix = (mx - offset.x) / zoom;
+        const iy = (my - offset.y) / zoom;
 
-      if (col >= 0 && col < grid.cols && row >= 0 && row < grid.rows) {
-        setHoverCell({ r: row, c: col });
-      } else {
-        setHoverCell(null);
+        const nx = mx - ix * newZoom;
+        const ny = my - iy * newZoom;
+
+        setZoom(newZoom);
+        setOffset({ x: nx, y: ny });
       }
+    };
+
+    container.addEventListener('wheel', handleWheelEvent, { passive: false });
+    return () => container.removeEventListener('wheel', handleWheelEvent);
+  }, [zoom, offset, setZoom]);
+
+  // Pan logic
+  const onMouseDown = (e) => {
+    if (e.button === 0) {
+      setIsPanning(true);
+      setLastMousePos({ x: e.clientX, y: e.clientY });
     }
   };
 
-  const handleMouseUp = () => setIsDragging(false);
-
-  const handleWheel = (e) => {
-    if (e.ctrlKey) {
-      e.preventDefault();
-      const delta = e.deltaY > 0 ? -0.1 : 0.1;
-      setZoom((prev) => Math.min(5, Math.max(0.1, prev + delta)));
-    }
+  const onMouseMove = (e) => {
+    if (!isPanning) return;
+    const dx = e.clientX - lastMousePos.x;
+    const dy = e.clientY - lastMousePos.y;
+    setOffset((prev) => ({ x: prev.x + dx, y: prev.y + dy }));
+    setLastMousePos({ x: e.clientX, y: e.clientY });
   };
+
+  const onMouseUp = () => setIsPanning(false);
 
   return (
     <div
-      className={styles.container}
       ref={containerRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      onWheel={handleWheel}
+      className={styles.container}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseUp}
     >
       <div
-        className={styles.transformWrapper}
+        className={styles.canvasWrapper}
         style={{
           transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
-          cursor: isDragging ? 'grabbing' : 'grab',
+          transformOrigin: '0 0',
         }}
       >
         <canvas ref={canvasRef} className={styles.canvas} />
       </div>
 
-      <div className={styles.controls}>
-        <span>Drag to pan · Ctrl + Wheel to zoom</span>
+      <div className={styles.coordinateInfo}>
+        PAN: {Math.round(offset.x)}, {Math.round(offset.y)} | HOLD CTRL + SCROLL
+        TO ZOOM
       </div>
     </div>
   );

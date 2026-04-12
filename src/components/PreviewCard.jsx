@@ -5,19 +5,21 @@ const PreviewCard = ({ image, grid, stats }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (!image || !canvasRef.current) return;
+
     const canvas = canvasRef.current;
-    if (!canvas || !image) return;
-
     const ctx = canvas.getContext('2d');
-    canvas.width = stats.outputW;
-    canvas.height = stats.outputH;
-
     const img = new Image();
     img.src = image.url;
+
     img.onload = () => {
+      canvas.width = stats.outputW;
+      canvas.height = stats.outputH;
+
+      // Clear
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw the first cell as preview
+      // Draw first sprite (0,0) as preview
       ctx.drawImage(
         img,
         grid.padding,
@@ -30,18 +32,20 @@ const PreviewCard = ({ image, grid, stats }) => {
         stats.outputH
       );
     };
-  }, [image, grid.padding, stats.outputW, stats.outputH]);
+  }, [image, grid, stats]);
 
   return (
     <div className={styles.card}>
-      <div className={styles.previewBox}>
+      <div className={styles.header}>
+        <div className={styles.indicator} />
+        <span>Output Preview (0,0)</span>
+      </div>
+      <div className={styles.previewContainer}>
         <canvas ref={canvasRef} className={styles.canvas} />
       </div>
-      <div className={styles.info}>
-        <span className={styles.label}>Single Sprite Preview</span>
-        <span className={styles.size}>
-          {stats.outputW} × {stats.outputH} px
-        </span>
+      <div className={styles.footer}>
+        <span className={styles.tag}>Live Render</span>
+        <span className={styles.tag}>Alpha Active</span>
       </div>
     </div>
   );

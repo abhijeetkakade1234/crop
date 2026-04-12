@@ -1,162 +1,243 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.5rem;
 }
 
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  gap: 0.75rem;
+  font-family: var(--font-label);
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-secondary);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  opacity: 0.8;
 }
 
 .gridInputs {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .inputGroup {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .inputGroup label {
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 700;
   color: var(--text-secondary);
 }
 
-.inputGroup input[type='number'] {
-  background: rgba(15, 15, 15, 0.5);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 12px;
-  color: var(--text);
-  font-size: 0.95rem;
-  width: 100%;
+.inputGroup input[type='number'],
+.inputGroup input[type='text'] {
+  background: var(--surface-container-low);
+  border: none;
+  border-bottom: 2px solid var(--outline);
+  padding: 0.75rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent);
   transition: border-color 0.2s;
 }
 
-.inputGroup input[type='number']:focus {
+.inputGroup input:focus {
   outline: none;
-  border-color: var(--accent);
+  border-bottom-color: var(--primary);
+  background: var(--surface-container);
 }
 
-.inputGroup input[type='range'] {
-  width: 100%;
-  accent-color: var(--accent);
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rangeRow input[type='range'] {
+  flex: 1;
+  accent-color: var(--primary);
 }
 
 .rangeValue {
-  font-size: 0.8rem;
-  color: var(--accent);
-  text-align: right;
-  margin-top: -4px;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 0.9rem;
+  min-width: 40px;
+  color: var(--primary);
 }
 
-.stats {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  padding: 12px;
+.statsCard {
+  background: var(--bg);
+  border: 2px solid #1a1a0f;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  border: 1px solid var(--border);
+  gap: 0.75rem;
+  box-shadow: var(--hard-shadow);
+  margin-top: 0.5rem;
 }
 
-.statItem {
+.statLine {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
-}
-
-.statLabel {
+  align-items: center;
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-secondary);
 }
 
-.statValue {
-  color: var(--text);
-  font-weight: 500;
+.mono {
   font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--accent);
 }
 
-.checkbox {
+.accent {
+  color: var(--primary);
+}
+
+.harvestGradient {
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    var(--accent-container),
+    var(--primary),
+    var(--tertiary),
+    var(--secondary),
+    var(--accent)
+  );
+  margin: 0.25rem 0;
+}
+
+.modernCheckbox {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.75rem;
   cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  position: relative;
+  user-select: none;
 }
 
-.checkbox input {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--accent);
+.modernCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  height: 20px;
+  width: 20px;
+  background-color: var(--surface-container-high);
+  border: 2px solid #1a1a0f;
+  border-radius: 4px;
+}
+
+.modernCheckbox:hover input ~ .checkmark {
+  background-color: var(--surface-container-highest);
+}
+
+.modernCheckbox input:checked ~ .checkmark {
+  background-color: var(--primary);
+  border-color: #1a1a0f;
+}
+
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.modernCheckbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkboxLabel {
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: auto;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.exportBtn {
-  background: var(--accent);
+.carrotBtn,
+.sunshineBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-label);
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  box-shadow: var(--hard-shadow);
+  border: 2px solid #1a1a0f;
+}
+
+.carrotBtn {
+  background: var(--primary);
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s;
-  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+}
+.sunshineBtn {
+  background: var(--accent-container);
+  color: var(--accent);
 }
 
-.exportBtn:hover:not(:disabled) {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
+.carrotBtn:hover,
+.sunshineBtn:hover {
+  box-shadow: var(--hard-shadow-active);
+  transform: translate(2px, 2px);
 }
 
-.exportBtn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.carrotBtn:active,
+.sunshineBtn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
 }
 
-.secondaryBtn {
-  background: var(--surface-hover);
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  border: 1px solid var(--border);
-  transition: all 0.2s;
+.carrotBtn:disabled,
+.sunshineBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
-.secondaryBtn:hover:not(:disabled) {
-  background: #333;
+.spacer {
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
@@ -166,8 +247,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.spin {
-  animation: spin 1s linear infinite;
 }
