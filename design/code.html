@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crop — Digital Heirloom Sprite Slicer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Syne:wght@400..800&amp;family=DM+Mono:ital,wght@0,300..500;1,300..500&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;family=Epilogue:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#930000",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#765a00",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#251a00",
+                    "on-surface-variant": "#4e4633",
+                    "tertiary-fixed-dim": "#ffb4a8",
+                    "surface-container-highest": "#ede2c6",
+                    "on-secondary-container": "#571a00",
+                    "tertiary-fixed": "#ffdad4",
+                    "inverse-surface": "#36301d",
+                    "background": "#fff8ef",
+                    "surface-container-low": "#fef3d6",
+                    "surface-container-high": "#f2e7cb",
+                    "primary": "#765a00",
+                    "on-tertiary-fixed": "#410000",
+                    "primary-fixed-dim": "#f4bf18",
+                    "on-primary-container": "#6f5500",
+                    "secondary-container": "#ff641a",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#b50302",
+                    "surface-dim": "#e4d9be",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb599",
+                    "surface-variant": "#ede2c6",
+                    "outline-variant": "#d2c5ac",
+                    "on-secondary-fixed": "#370e00",
+                    "tertiary": "#be0f07",
+                    "on-secondary-fixed-variant": "#802a00",
+                    "inverse-primary": "#f4bf18",
+                    "outline": "#807660",
+                    "on-background": "#201b0a",
+                    "on-surface": "#201b0a",
+                    "on-error-container": "#93000a",
+                    "secondary": "#a73a00",
+                    "tertiary-container": "#ffc2b8",
+                    "surface-bright": "#fff8ef",
+                    "on-primary-fixed-variant": "#594400",
+                    "primary-fixed": "#ffdf95",
+                    "surface-container": "#f8edd1",
+                    "secondary-fixed": "#ffdbce",
+                    "inverse-on-surface": "#fbf0d4",
+                    "error": "#ba1a1a",
+                    "primary-container": "#ffc926",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fff8ef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "md": "12px",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Playfair Display", "serif"],
+                    "body": ["DM Mono", "monospace"],
+                    "label": ["Syne", "sans-serif"],
+                    "mono": ["DM Mono", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hard-shadow { box-shadow: 4px 4px 0px #1a1a0f; }
+        .hard-shadow-hover:hover { box-shadow: 2px 2px 0px #1a1a0f; transform: translate(2px, 2px); }
+        .bg-dot-pattern {
+            background-image: radial-gradient(circle, #ffc926 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .harvest-gradient {
+            background: linear-gradient(to right, #ffc926, #ff7043, #ff5252, #9abc05, #18542a);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<nav class="fixed top-0 z-50 w-full bg-[#fff8ef]/60 backdrop-blur-md border-b-4 border-transparent bg-gradient-to-r from-[#ffc926] via-[#ff7043] to-[#ff5252] bg-[length:100%_4px] bg-bottom bg-no-repeat">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-[1440px] mx-auto">
+<a class="text-3xl font-black italic text-[#18542a] font-headline tracking-tighter" href="#">Crop</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#18542a] dark:text-[#ffc926] border-b-2 border-[#18542a] dark:border-[#ffc926] pb-1 font-label font-bold text-sm uppercase tracking-wider" href="#platform">Platform</a>
+<a class="text-[#18542a]/70 dark:text-[#ffc926]/70 font-medium font-label hover:text-[#ff7043] transition-colors duration-200 text-sm uppercase tracking-wider" href="#resources">Resources</a>
+<a class="text-[#18542a]/70 dark:text-[#ffc926]/70 font-medium font-label hover:text-[#ff7043] transition-colors duration-200 text-sm uppercase tracking-wider" href="#pricing">Pricing</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-lg font-label font-bold hard-shadow hard-shadow-hover transition-all active:scale-95">
+                Get Started
+            </button>
+</div>
+</nav>
+<!-- HERO SECTION -->
+<header class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Heritage landscape" class="w-full h-full object-cover" data-alt="Cinematic wide shot of a lush green agricultural landscape with vibrant rolling hills and soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFdW_7CBIgDNUjIuTrKMtBQvyuXX3fMNeUn_iJNps6Y9TrMjeZ67vVfOGCKm_46WPrfumHfR6hvPOVhcZrHgcH-jkcBZrK_MkJaOL-B7gDmEV8FwIjO-f7lrBdyb4pkvqu2i4bjFMe0X5DPxINgvzDid-7EwV5UantcFPnZiXBVJlPgfBPNmPhVb3oMz4-p8roFWHqmLpm2f6vtwWjYPiwvPjQdC9HUsemA5D1FYJ9D-UpxDFr_dVS14itwwQqrRTE3thf93puandL"/>
+<div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(243,232,204,0.82) 0%, rgba(243,232,204,0.95) 60%, #fff8ef 100%);"></div>
+</div>
+<div class="relative z-10 text-center px-6 max-w-5xl mx-auto flex flex-col items-center">
+<span class="mb-8 px-4 py-1.5 bg-[#18542a] text-[#ffc926] font-mono text-sm tracking-widest rounded-full uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                sprite sheet slicer
+            </span>
+<h1 class="font-headline italic font-black text-[#18542a] leading-[0.85] mb-6" style="font-size: clamp(6rem, 18vw, 14rem);">
+                Crop
+            </h1>
+<p class="font-mono text-[#5a4a2a] text-xl md:text-2xl mb-12 max-w-2xl">
+                Upload a sprite sheet. Set your grid. <br class="hidden md:block"/> Download clean individual assets.
+            </p>
+<div class="flex flex-col sm:flex-row gap-6">
+<button class="bg-[#f96015] text-[#fff8ef] px-10 py-5 rounded-lg font-label font-bold text-xl hard-shadow hard-shadow-hover transition-all flex items-center gap-3">
+                    Start Cropping <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="mt-20 animate-bounce">
+<span class="material-symbols-outlined text-[#f96015] text-4xl">south</span>
+</div>
+</div>
+</header>
+<!-- SECTION DIVIDER -->
+<div class="h-[3px] w-full harvest-gradient"></div>
+<!-- SECTION 2: WHAT IS CROP -->
+<section class="bg-[#18542a] py-32 px-8 relative overflow-hidden">
+<div class="absolute inset-0 bg-dot-pattern opacity-20"></div>
+<div class="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="font-headline italic font-bold text-[#f3e8cc] text-5xl md:text-7xl leading-tight mb-8">
+                    AI gives you sheets. <span class="text-[#ffc926]">Not assets.</span>
+</h2>
+<p class="font-mono text-[#f3e8cc]/80 text-lg leading-relaxed mb-8">
+                    Crop bridges the gap between generative imagery and game development. We take that sprawling grid of character animations and precisely slice them into clean, transparent PNGs ready for Unity, Unreal, or Godot.
+                </p>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 font-mono text-[#ffc926]">
+<span class="material-symbols-outlined" data-weight="fill">check_circle</span> 
+                        Auto-detection
+                    </div>
+<div class="flex items-center gap-2 font-mono text-[#ffc926]">
+<span class="material-symbols-outlined" data-weight="fill">check_circle</span> 
+                        Batch export
+                    </div>
+</div>
+</div>
+<div class="bg-surface-container-low/10 rounded-lg p-2 backdrop-blur-sm border border-[#f3e8cc]/10 shadow-2xl">
+<div class="bg-[#1a1a0f] rounded-md aspect-video overflow-hidden flex items-center justify-center">
+<img alt="Tech Preview" class="opacity-60 grayscale hover:grayscale-0 transition-all duration-700" data-alt="Abstract retro computer hardware and circuit board with moody dark green lighting and technical feel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHQ2Xd-Tljcv8AcFvf5EXIKPxcD-sqsJpZnoyefuxQM3LeFCneAnSgFnfjZlJGANyFsIh2W16v5irS7hD4k7h9cGjL_5J4Rkwf1n0sX-FAkLTZva7Wbj41jNlxhuYXQ9LuOCG3vf-A6g1lBmzLIE9TFysx3cT88ghGLLgep3688umdNVMGnwhwq0cgEXUV-EQdcNkz2NO_qKpim_iAN9siza58ZYrdTW84JZmuYwt-5vya-MqNy2Qplpv1aMH-TCcTBuv47M8jD1VY"/>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: HOW IT WORKS -->
+<section class="bg-[#f3e8cc] py-32 px-8">
+<div class="max-w-6xl mx-auto">
+<h2 class="font-headline italic text-7xl md:text-8xl text-[#18542a] mb-20">
+                Three <span class="text-[#f96015]">steps.</span>
+</h2>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Step 01 -->
+<div class="bg-[#fff8ee] p-10 rounded-lg border-2 border-[#1a1a0f] hard-shadow relative group hover:-translate-y-2 transition-transform">
+<span class="absolute top-4 right-8 font-label font-black text-8xl text-[#f96015] opacity-10">01</span>
+<span class="material-symbols-outlined text-4xl text-[#f96015] mb-6">upload_file</span>
+<h3 class="font-label font-bold text-2xl text-[#18542a] mb-4">Ingest</h3>
+<p class="font-mono text-[#5a4a2a]">Drop your AI-generated sprite sheets or legacy atlas files into the canvas.</p>
+</div>
+<!-- Step 02 -->
+<div class="bg-[#fff8ee] p-10 rounded-lg border-2 border-[#1a1a0f] hard-shadow relative group hover:-translate-y-2 transition-transform">
+<span class="absolute top-4 right-8 font-label font-black text-8xl text-[#f96015] opacity-10">02</span>
+<span class="material-symbols-outlined text-4xl text-[#f96015] mb-6">grid_view</span>
+<h3 class="font-label font-bold text-2xl text-[#18542a] mb-4">Define</h3>
+<p class="font-mono text-[#5a4a2a]">Set your grid dimensions or let our vision model auto-detect frame boundaries.</p>
+</div>
+<!-- Step 03 -->
+<div class="bg-[#fff8ee] p-10 rounded-lg border-2 border-[#1a1a0f] hard-shadow relative group hover:-translate-y-2 transition-transform">
+<span class="absolute top-4 right-8 font-label font-black text-8xl text-[#f96015] opacity-10">03</span>
+<span class="material-symbols-outlined text-4xl text-[#f96015] mb-6">download</span>
+<h3 class="font-label font-bold text-2xl text-[#18542a] mb-4">Harvest</h3>
+<p class="font-mono text-[#5a4a2a]">Export a zip of individual PNGs with optimized padding and transparency.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: FEATURES -->
+<section class="bg-[#1a1a0f] py-32 px-8">
+<div class="max-w-6xl mx-auto">
+<h2 class="font-headline italic text-6xl md:text-7xl text-[#f3e8cc] mb-20 text-center">
+                Built for <span class="text-[#9abc05]">speed.</span>
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Sunshine Border -->
+<div class="bg-[#242418] p-8 border-l-8 border-[#ffc926] rounded-r-lg group hover:bg-[#2d2d1e] transition-colors">
+<h4 class="font-label font-bold text-[#ffc926] mb-2 uppercase tracking-tighter">Live Preview</h4>
+<p class="font-mono text-[#f3e8cc]/60">Watch your sprites dance as you adjust the grid in real-time. No more guessing pixel offsets.</p>
+</div>
+<!-- Carrot Border -->
+<div class="bg-[#242418] p-8 border-l-8 border-[#f96015] rounded-r-lg group hover:bg-[#2d2d1e] transition-colors">
+<h4 class="font-label font-bold text-[#f96015] mb-2 uppercase tracking-tighter">Alpha Handling</h4>
+<p class="font-mono text-[#f3e8cc]/60">Smart background removal for sheets that didn't come with a transparent layer.</p>
+</div>
+<!-- Kiwi Border -->
+<div class="bg-[#242418] p-8 border-l-8 border-[#9abc05] rounded-r-lg group hover:bg-[#2d2d1e] transition-colors">
+<h4 class="font-label font-bold text-[#9abc05] mb-2 uppercase tracking-tighter">Naming Schemes</h4>
+<p class="font-mono text-[#f3e8cc]/60">Custom regex naming. {sheet_name}_{row}_{col}.png ready for your pipeline.</p>
+</div>
+<!-- Tomato Border -->
+<div class="bg-[#242418] p-8 border-l-8 border-[#ff5252] rounded-r-lg group hover:bg-[#2d2d1e] transition-colors">
+<h4 class="font-label font-bold text-[#ff5252] mb-2 uppercase tracking-tighter">Cloud Storage</h4>
+<p class="font-mono text-[#f3e8cc]/60">Save your slicing templates and access them from any device. Secure and encrypted.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: WHO IT'S FOR -->
+<section class="bg-[#f3e8cc] py-32 px-8">
+<div class="max-w-4xl mx-auto text-center">
+<h2 class="font-headline italic text-6xl md:text-7xl text-[#18542a] mb-12">
+                Made for <span class="text-[#d52518]">makers.</span>
+</h2>
+<div class="flex flex-wrap justify-center gap-4">
+<span class="px-8 py-3 border-2 border-[#18542a] rounded-full font-mono text-[#18542a] font-bold hover:bg-[#18542a] hover:text-[#f3e8cc] transition-all cursor-default">Indie Devs</span>
+<span class="px-8 py-3 border-2 border-[#f96015] rounded-full font-mono text-[#f96015] font-bold hover:bg-[#f96015] hover:text-[#f3e8cc] transition-all cursor-default">AI Artists</span>
+<span class="px-8 py-3 border-2 border-[#d52518] rounded-full font-mono text-[#d52518] font-bold hover:bg-[#d52518] hover:text-[#f3e8cc] transition-all cursor-default">Game Jammers</span>
+<span class="px-8 py-3 border-2 border-[#9abc05] rounded-full font-mono text-[#9abc05] font-bold hover:bg-[#9abc05] hover:text-[#f3e8cc] transition-all cursor-default">Pixel Purists</span>
+</div>
+<div class="mt-20 relative p-12 bg-white/40 rounded-3xl border-2 border-[#18542a]/10 backdrop-blur-xl italic text-2xl font-headline text-[#5a4a2a]">
+                "Crop turned my 2-hour manual labor session into a 30-second workflow. The editorial aesthetic is just the cherry on top."
+                <div class="mt-6 not-italic font-mono text-sm uppercase tracking-widest text-[#18542a]">— Studio Heirloom</div>
+</div>
+</div>
+</section>
+<!-- SECTION 6: FINAL CTA -->
+<section class="bg-[#18542a] py-32 px-8 text-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-[3px] harvest-gradient"></div>
+<div class="max-w-3xl mx-auto relative z-10">
+<h2 class="font-headline italic font-black text-[#f3e8cc] text-6xl md:text-8xl mb-12 leading-none">
+                Stop cropping manually.
+            </h2>
+<button class="bg-[#ffc926] text-[#18542a] px-12 py-6 rounded-lg font-label font-black text-2xl hard-shadow hard-shadow-hover transition-all active:scale-95 inline-flex items-center gap-4">
+                Start Cropping Now <span class="material-symbols-outlined text-3xl">bolt</span>
+</button>
+<p class="mt-8 font-mono text-[#f3e8cc]/60 text-sm">No credit card required. Free up to 100 slices per day.</p>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="bg-[#1a1a0f] border-t-4 border-[#ffc926] pt-24 pb-12 px-8">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-16">
+<div class="space-y-6">
+<a class="text-4xl font-black italic text-[#ffc926] font-headline" href="#">Crop</a>
+<p class="font-mono text-[#f3e8cc]/50 max-w-xs text-sm">
+                    Refining the digital harvest since 2024. Built for the next generation of asset pipelines.
+                </p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-12">
+<div class="flex flex-col gap-4">
+<span class="font-label font-bold text-[#ffc926] uppercase text-xs tracking-widest">Platform</span>
+<a class="font-mono text-[#f3e8cc]/80 text-sm hover:text-[#f96015] transition-colors" href="https://experimentwith.abhijeetkakade.in">Labs</a>
+<a class="font-mono text-[#f3e8cc]/80 text-sm hover:text-[#f96015] transition-colors" href="#">Slicer</a>
+<a class="font-mono text-[#f3e8cc]/80 text-sm hover:text-[#f96015] transition-colors" href="#">API</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label font-bold text-[#ffc926] uppercase text-xs tracking-widest">Legal</span>
+<a class="font-mono text-[#f3e8cc]/80 text-sm hover:text-[#f96015] transition-colors" href="#">Privacy</a>
+<a class="font-mono text-[#f3e8cc]/80 text-sm hover:text-[#f96015] transition-colors" href="#">Terms</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label font-bold text-[#ffc926] uppercase text-xs tracking-widest">Social</span>
+<a class="font-mono text-[#f3e8cc]/80 text-sm hover:text-[#f96015] transition-colors" href="#">Twitter</a>
+<a class="font-mono text-[#f3e8cc]/80 text-sm hover:text-[#f96015] transition-colors" href="#">Discord</a>
+</div>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto mt-24 pt-8 border-t border-[#f3e8cc]/10 flex flex-col md:flex-row justify-between gap-4">
+<p class="font-mono text-[#f3e8cc]/40 text-xs uppercase tracking-widest">
+                © 2024 Crop Digital Heirloom. All rights reserved.
+            </p>
+<a class="font-mono text-[#f3e8cc]/40 text-xs uppercase tracking-widest hover:text-[#ffc926] transition-colors" href="https://abhijeetkakade.in">
+                Built by Abhijeet
+            </a>
+</div>
+</footer>
+</body></html>
