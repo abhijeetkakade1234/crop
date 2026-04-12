@@ -237,7 +237,7 @@ const UploadBox = ({ onUpload }) => {
               Crop
             </a>
             <p className={styles.footerTagline}>
-              Refining the digital harvest since 2024. Built for the next
+              Refining the digital harvest since 2026. Built for the next
               generation of asset pipelines.
             </p>
           </div>
