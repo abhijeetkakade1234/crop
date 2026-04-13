@@ -11,6 +11,12 @@ const Editor = ({ image, onReset }) => {
     padding: 0,
     showGrid: true,
     transparentBg: true,
+    chromaKey: {
+      enabled: image.isFullyOpaque, // Auto-enable if the image has no transparency
+      smartMode: false,
+      color: image.suggestedBgColor || '#ffffff',
+      tolerance: 15,
+    },
   });
 
   const [zoom, setZoom] = useState(1);
@@ -28,14 +34,14 @@ const Editor = ({ image, onReset }) => {
     <div className={styles.editorRoot}>
       <header className={styles.header}>
         <div className={styles.left}>
-          <button className={styles.backBtn} onClick={onReset}>
+          <button className={styles.backBtn} onClick={onReset} title="Go Back">
             <ArrowLeft size={20} />
           </button>
           <div className={styles.divider} />
           <div className={styles.fileInfo}>
             <h2 className={styles.filename}>{image.name}</h2>
             <span className={styles.filesize}>
-              {image.width} × {image.height} px
+              {image.width} × {image.height} pixels
             </span>
           </div>
         </div>
@@ -47,7 +53,7 @@ const Editor = ({ image, onReset }) => {
               onClick={() =>
                 setGrid((prev) => ({ ...prev, showGrid: !prev.showGrid }))
               }
-              title="Toggle Grid Lines"
+              title="Show/Hide Grid"
             >
               <LayoutGrid size={18} />
             </button>
@@ -81,7 +87,12 @@ const Editor = ({ image, onReset }) => {
           </div>
         </div>
 
-        <div className={styles.right}></div>
+        <div className={styles.right}>
+          <div className={styles.pulseBadge}>
+            <div className={styles.pulseDot}></div>
+            Ready to save
+          </div>
+        </div>
       </header>
 
       <main className={styles.content}>

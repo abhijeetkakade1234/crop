@@ -2,20 +2,23 @@ import { useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import UploadBox from './components/UploadBox';
 import Editor from './components/Editor';
+import { analyzeImageTransparency } from './utils/transparency';
 
 function App() {
-  const [image, setImage] = useState(null); // { url, width, height, name }
+  const [image, setImage] = useState(null); // { url, width, height, name, hasTransparency, suggestedBgColor }
 
   const handleUpload = useCallback((file) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
+        const analysis = analyzeImageTransparency(img);
         setImage({
           url: e.target.result,
           width: img.width,
           height: img.height,
           name: file.name.replace(/\.[^/.]+$/, ''),
+          ...analysis,
         });
       };
       img.src = e.target.result;

@@ -61,18 +61,18 @@ const UploadBox = ({ onUpload }) => {
         <div className={styles.heroContent}>
           <span className={styles.badge}>
             <Sparkles size={14} />
-            sprite sheet slicer
+            split big images into parts
           </span>
           <h1 className={styles.headline}>Crop</h1>
           <p className={styles.subtitle}>
-            Upload a sprite sheet. Set your grid. <br /> Download clean
-            individual assets.
+            Upload an image. Set your grid. <br /> Download clean individual
+            parts.
           </p>
 
           <div {...getRootProps()} className={styles.uploadTrigger}>
             <input {...getInputProps()} />
             <button className={styles.heroBtn} onClick={open}>
-              {isDragActive ? 'Drop to Harvest' : 'Start Cropping'}
+              {isDragActive ? 'Drop to Start' : 'Start Splitting'}
               <ArrowRight size={24} />
             </button>
           </div>
@@ -92,14 +92,13 @@ const UploadBox = ({ onUpload }) => {
               <span className={styles.goldText}>Not assets.</span>
             </h2>
             <p className={styles.sectionDesc}>
-              Crop bridges the gap between generative imagery and game
-              development. We take that sprawling grid of character animations
-              and precisely slice them into clean, transparent PNGs ready for
-              Unity, Unreal, or Godot.
+              Crop helps you turn one big image into many smaller ones. We take
+              your grid of drawings and precisely cut them into clean,
+              transparent images ready for any project.
             </p>
             <div className={styles.featureRow}>
               <div className={styles.featureItem}>
-                <PackageCheck size={18} /> Auto-detection
+                <PackageCheck size={18} /> Automatic Settings
               </div>
               <div className={styles.featureItem}>
                 <PackageCheck size={18} /> Batch export
@@ -124,28 +123,27 @@ const UploadBox = ({ onUpload }) => {
             <div className={styles.stepCard}>
               <span className={styles.stepNumber}>01</span>
               <Upload className={styles.stepIcon} size={40} />
-              <h3 className={styles.stepName}>Ingest</h3>
+              <h3 className={styles.stepName}>Upload</h3>
               <p className={styles.stepText}>
-                Drop your AI-generated sprite sheets or legacy atlas files into
-                the canvas.
+                Drop your big images or character sheets into the area.
               </p>
             </div>
             <div className={styles.stepCard}>
               <span className={styles.stepNumber}>02</span>
               <Grid3X3 className={styles.stepIcon} size={40} />
-              <h3 className={styles.stepName}>Define</h3>
+              <h3 className={styles.stepName}>Adjust</h3>
               <p className={styles.stepText}>
-                Set your grid dimensions or let our vision model auto-detect
-                frame boundaries.
+                Choose how many parts you want or let us automatically find the
+                borders.
               </p>
             </div>
             <div className={styles.stepCard}>
               <span className={styles.stepNumber}>03</span>
               <PackageCheck className={styles.stepIcon} size={40} />
-              <h3 className={styles.stepName}>Harvest</h3>
+              <h3 className={styles.stepName}>Save</h3>
               <p className={styles.stepText}>
-                Export a zip of individual PNGs with optimized padding and
-                transparency.
+                Download a folder of all your small images with transparent
+                backgrounds.
               </p>
             </div>
           </div>
@@ -162,29 +160,29 @@ const UploadBox = ({ onUpload }) => {
             <div className={`${styles.featureCard} ${styles.sunshineBorder}`}>
               <h4 className={styles.featureLabel}>Live Preview</h4>
               <p className={styles.featureDesc}>
-                Watch your sprites dance as you adjust the grid in real-time. No
-                more guessing pixel offsets.
+                Watch your images update as you change the grid. No more
+                guessing pixel sizes.
               </p>
             </div>
             <div className={`${styles.featureCard} ${styles.carrotBorder}`}>
-              <h4 className={styles.featureLabel}>Alpha Handling</h4>
+              <h4 className={styles.featureLabel}>Make Transparent</h4>
               <p className={styles.featureDesc}>
-                Smart background removal for sheets that didn&apos;t come with a
-                transparent layer.
+                Easily remove solid backgrounds to get clean, transparent images
+                for your project.
               </p>
             </div>
             <div className={`${styles.featureCard} ${styles.kiwiBorder}`}>
               <h4 className={styles.featureLabel}>Naming Schemes</h4>
               <p className={styles.featureDesc}>
-                Custom regex naming. {'{sheet_name}'}_{'{row}'}_{'{col}'}.png
-                ready for your pipeline.
+                Automatically name your files. Name_Row_Column.png ready for
+                your folders.
               </p>
             </div>
             <div className={`${styles.featureCard} ${styles.tomatoBorder}`}>
-              <h4 className={styles.featureLabel}>Cloud Storage</h4>
+              <h4 className={styles.featureLabel}>Privacy First</h4>
               <p className={styles.featureDesc}>
-                Save your slicing templates and access them from any device.
-                Secure and encrypted.
+                Everything happens on your computer. Your images are never
+                uploaded to a server. Safe and private.
               </p>
             </div>
           </div>
@@ -199,17 +197,22 @@ const UploadBox = ({ onUpload }) => {
                 The Seed <span className={styles.kiwiText}>Prompt.</span>
               </h2>
               <p className={styles.promptSubtitle}>
-                Copy this prompt into Midjourney or DALL-E to generate perfectly
-                structured agrarian sprite sheets.
+                Copy this professional prompt into Midjourney or DALL-E to get
+                perfectly aligned images that are easy to split.
               </p>
             </div>
             <div className={styles.codeBlock}>
               <code id="sprite-prompt">
-                A full character sprite sheet of a 2D fantasy adventurer, 8
-                directions of movement, walking animation, side view, front
-                view, back view, pixel art style, high fidelity, 32-bit, soft
-                agrarian lighting, forest green and cream palette, organized in
-                a clean 4x4 grid, white background --v 6.0
+                Create a pixel art image sheet for a main player character in a
+                top-down 2D RPG game (Pokémon GBA style). <br />
+                <br />
+                Character: Young village boy, adventurer outfit, messy brown
+                hair. <br />
+                Style: 16-bit pixel art, sharp edges, soft colors. <br />
+                Perspective: Top-down RPG view. <br />
+                Layout: 4 rows × 3 columns grid (Down, Left, Right, Up). <br />
+                Requirement: One PNG with a plain white or transparent
+                background.
               </code>
               <button
                 className={styles.copyBtn}
@@ -237,8 +240,7 @@ const UploadBox = ({ onUpload }) => {
               Crop
             </a>
             <p className={styles.footerTagline}>
-              Refining the digital harvest since 2026. Built for the next
-              generation of asset pipelines.
+              The easy way to split and save your images. Built for everyone.
             </p>
           </div>
           <div className={styles.footerNav}>
@@ -247,10 +249,12 @@ const UploadBox = ({ onUpload }) => {
         </div>
         <div className={styles.copyrightBar}>
           <p>
-            © {new Date().getFullYear()} Crop Digital Heirloom. All rights
+            © {new Date().getFullYear()} Crop Sprite Slicer. All rights
             reserved.
           </p>
-          <a href="#">Built by Abhijeet</a>
+          <a href="https://experimentwith.abhijeetkakade.in">
+            Built by Abhijeet
+          </a>
         </div>
       </footer>
     </div>

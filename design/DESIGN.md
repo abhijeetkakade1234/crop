@@ -1,7 +1,7 @@
 # Design System Strategy: The Modern Agrarian
 
 ## 1. Overview & Creative North Star
-The Creative North Star for this design system is **"The Digital Heirloom."** 
+The Creative North Star for this design system is **"The Editorial Asset Harvester."** 
 
 We are moving away from the sterile, "safe" SaaS aesthetics of the last decade. Instead, we are blending the tactile, high-contrast soul of a **vintage food poster** with the relentless precision and functional density of **Linear.app**. This system balances organic warmth with brutalist structure. It is intentional, confident, and unapologetically editorial. We break the "template" look through massive typographic scales, hard-edged shadows that imply physical thickness, and a layout that breathes through expansive white space rather than restrictive lines.
 

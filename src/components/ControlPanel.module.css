@@ -184,6 +184,53 @@
   color: var(--text-secondary);
 }
 
+.chromaSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dotted var(--outline);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.chromaControls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: slideDown 0.3s ease-out;
+  background: var(--surface-container-low);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--outline);
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.colorRow input[type='color'] {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid #1a1a0f;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .actions {
   display: flex;
   flex-direction: column;
@@ -247,4 +294,34 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.autoBadge {
+  font-size: 10px;
+  background: var(--secondary);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.betaBadge {
+  font-size: 8px;
+  background: var(--tertiary);
+  color: white;
+  padding: 1px 6px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  font-weight: 800;
+  vertical-align: middle;
+  margin-left: 8px;
 }

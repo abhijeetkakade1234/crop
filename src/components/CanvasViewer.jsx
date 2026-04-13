@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import styles from './CanvasViewer.module.css';
+import { applyChromaKey, applySmartRemoval } from '../utils/transparency';
 
 const CanvasViewer = ({ image, grid, zoom, setZoom, stats }) => {
   const canvasRef = useRef(null);
@@ -49,6 +50,14 @@ const CanvasViewer = ({ image, grid, zoom, setZoom, stats }) => {
       canvas.height = image.height;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
+
+      if (grid.chromaKey.enabled) {
+        if (grid.chromaKey.smartMode) {
+          applySmartRemoval(ctx, grid.chromaKey.tolerance);
+        } else {
+          applyChromaKey(ctx, grid.chromaKey.color, grid.chromaKey.tolerance);
+        }
+      }
 
       if (grid.showGrid) {
         ctx.strokeStyle = '#18542a';
