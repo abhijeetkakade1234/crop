@@ -160,6 +160,16 @@
   display: flex;
   flex-direction: column;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.sidebarHandle {
+  display: none;
+  width: 40px;
+  height: 4px;
+  background: var(--outline);
+  border-radius: 99px;
+  margin: 0 auto 1.5rem;
 }
 
 .pulseBadge {
@@ -202,15 +212,59 @@
 }
 
 @media (max-width: 1024px) {
+  .header {
+    height: auto;
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .left,
+  .right {
+    flex: none;
+  }
+  .center {
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   .content {
     flex-direction: column;
   }
   .sidebar {
     width: 100%;
+    min-width: 100%;
     border-left: none;
-    border-top: 1px solid var(--outline);
+    border-top: 4px solid var(--accent-container);
+    padding: 1.5rem;
+    height: auto;
+    max-height: 50vh;
+  }
+  .sidebarHandle {
+    display: block;
   }
   .canvasArea {
-    min-height: 400px;
+    flex: 2;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .filename {
+    font-size: 1.2rem;
+  }
+  .filesize {
+    display: none;
+  }
+  .pulseBadge {
+    padding: 4px 10px;
+    font-size: 0.6rem;
+  }
+  .toolbar {
+    padding: 4px 10px;
+  }
+  .zoomLabel {
+    min-width: 40px;
+    font-size: 0.7rem;
   }
 }

@@ -107,6 +107,7 @@ const Editor = ({ image, onReset }) => {
         </div>
 
         <aside className={styles.sidebar}>
+          <div className={styles.sidebarHandle} />
           <ControlPanel
             grid={grid}
             setGrid={setGrid}

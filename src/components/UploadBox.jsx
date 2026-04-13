@@ -49,7 +49,11 @@ const UploadBox = ({ onUpload }) => {
       </nav>
 
       {/* Hero Section */}
-      <header id="hero" className={styles.hero}>
+      <header
+        id="hero"
+        {...getRootProps()}
+        className={`${styles.hero} ${isDragActive ? styles.dragActive : ''}`}
+      >
         <div className={styles.heroBg}>
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFdW_7CBIgDNUjIuTrKMtBQvyuXX3fMNeUn_iJNps6Y9TrMjeZ67vVfOGCKm_46WPrfumHfR6hvPOVhcZrHgcH-jkcBZrK_MkJaOL-B7gDmEV8FwIjO-f7lrBdyb4pkvqu2i4bjFMe0X5DPxINgvzDid-7EwV5UantcFPnZiXBVJlPgfBPNmPhVb3oMz4-p8roFWHqmLpm2f6vtwWjYPiwvPjQdC9HUsemA5D1FYJ9D-UpxDFr_dVS14itwwQqrRTE3thf93puandL"
@@ -59,6 +63,14 @@ const UploadBox = ({ onUpload }) => {
         </div>
 
         <div className={styles.heroContent}>
+          {isDragActive && (
+            <div className={styles.dragOverlay}>
+              <div className={styles.dragContent}>
+                <Upload size={64} className={styles.dragIcon} />
+                <p>Drop your image here to start</p>
+              </div>
+            </div>
+          )}
           <span className={styles.badge}>
             <Sparkles size={14} />
             split big images into parts
@@ -69,7 +81,7 @@ const UploadBox = ({ onUpload }) => {
             parts.
           </p>
 
-          <div {...getRootProps()} className={styles.uploadTrigger}>
+          <div className={styles.uploadTrigger}>
             <input {...getInputProps()} />
             <button className={styles.heroBtn} onClick={open}>
               {isDragActive ? 'Drop to Start' : 'Start Splitting'}

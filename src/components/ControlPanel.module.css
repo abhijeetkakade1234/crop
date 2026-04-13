@@ -325,3 +325,33 @@
   vertical-align: middle;
   margin-left: 8px;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    gap: 1.5rem;
+  }
+  .section {
+    gap: 1rem;
+  }
+  .carrotBtn,
+  .sunshineBtn {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  .statsCard {
+    padding: 1rem;
+  }
+  .inputGroup input[type='number'],
+  .inputGroup input[type='text'] {
+    padding: 0.6rem 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .gridInputs {
+    gap: 1rem;
+  }
+  .sectionHeader {
+    font-size: 0.65rem;
+  }
+}
