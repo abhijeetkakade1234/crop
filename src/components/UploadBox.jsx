@@ -253,6 +253,11 @@ const UploadBox = ({ onUpload }) => {
             </a>
             <p className={styles.footerTagline}>
               The easy way to split and save your images. Built for everyone.
+              <br />
+              Found a bug? Mail me at:{' '}
+              <a href="mailto:abhijeetskakade04@gmail.com">
+                abhijeetskakade04@gmail.com
+              </a>
             </p>
           </div>
           <div className={styles.footerNav}>

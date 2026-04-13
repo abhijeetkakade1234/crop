@@ -492,10 +492,15 @@
   margin-bottom: 1.5rem;
 }
 
-.footerTagline {
-  font-size: 0.85rem;
-  color: rgba(243, 232, 204, 0.5);
-  line-height: 1.6;
+.footerTagline a {
+  color: var(--accent-container);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 600;
+}
+
+.footerTagline a:hover {
+  filter: brightness(1.2);
 }
 
 .footerNav {
